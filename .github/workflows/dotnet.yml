@@ -24,3 +24,21 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    - name: Publish
+      run: dotnet publish -c Release --no-restore 
+
+    - name: FTP Deployment
+      uses: airvzxf/ftp-deployment-action@latest
+      with:
+        # FTP Server.
+        server: "ftp://xaritestapp.somee.com/www.xaritestapp.somee.com"
+        # FTP User.
+        user: "stevenxari"
+        # FTP Password.
+        password: "StevenCheco@1909"
+        # Local directory.
+        local_dir: /home/runner/work/WebAppCICD/WebAppCICD/WebAppCICD/bin/Release/net7.0/publish/
+        # Remote directory.
+        remote_dir: ./
+        # Delete all the files inside of the remote directory.
+        delete: "true"
